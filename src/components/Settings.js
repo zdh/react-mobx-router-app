@@ -1,6 +1,6 @@
 import ListErrors from "./ListErrors";
 import React from "react";
-import { withRouter } from "react-router-dom";
+// import { withRouter } from "react-router-dom";
 import { inject, observer } from "mobx-react";
 
 @inject("userStore")
@@ -114,7 +114,7 @@ class SettingsForm extends React.Component {
 }
 
 @inject("userStore", "authStore")
-@withRouter
+// @withRouter
 @observer
 class Settings extends React.Component {
   handleClickLogout = () =>

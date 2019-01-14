@@ -2,10 +2,8 @@ import ArticlePreview from "./ArticlePreview";
 import ListPagination from "./ListPagination";
 import LoadingSpinner from "./LoadingSpinner";
 import React from "react";
-import { toJS } from "mobx";
 
 const ArticleList = props => {
-
   if (props.loading && props.articles.length === 0) {
     return <LoadingSpinner />;
   }
@@ -16,7 +14,7 @@ const ArticleList = props => {
 
   return (
     <div>
-      {toJS(props.articles).map(article => {
+      {props.articles.map(article => {
         return <ArticlePreview article={article} key={article.slug} />;
       })}
 

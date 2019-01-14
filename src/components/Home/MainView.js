@@ -1,25 +1,33 @@
 import ArticleList from "../ArticleList";
 import React from "react";
 import { inject, observer } from "mobx-react";
-import { withRouter, NavLink } from "react-router-dom";
+// import { withRouter, NavLink } from "react-router-dom";
+
+import { Link } from "mobx-router";
+import views from "../../config/views";
+
 import { parse as qsParse } from "query-string";
 
 const YourFeedTab = props => {
   if (props.currentUser) {
     return (
       <li className="nav-item">
-        <NavLink
-          className="nav-link"
-          isActive={(match, location) => {
-            return location.search.match("tab=feed") ? 1 : 0;
-          }}
-          to={{
-            pathname: "/",
-            search: "?tab=feed"
-          }}
-        >
+        <Link view={views.home} store={props.store} params={"?tab=feed"}>
           Your Feed
-        </NavLink>
+        </Link>
+
+        {/*<NavLink*/}
+        {/*className="nav-link"*/}
+        {/*isActive={(match, location) => {*/}
+        {/*return location.search.match("tab=feed") ? 1 : 0;*/}
+        {/*}}*/}
+        {/*to={{*/}
+        {/*pathname: "/",*/}
+        {/*search: "?tab=feed"*/}
+        {/*}}*/}
+        {/*>*/}
+        {/*Your Feed*/}
+        {/*</NavLink>*/}
       </li>
     );
   }
@@ -29,18 +37,22 @@ const YourFeedTab = props => {
 const GlobalFeedTab = props => {
   return (
     <li className="nav-item">
-      <NavLink
-        className="nav-link"
-        isActive={(match, location) => {
-          return !location.search.match(/tab=(feed|tag)/) ? 1 : 0;
-        }}
-        to={{
-          pathname: "/",
-          search: "?tab=all"
-        }}
-      >
-        Global Feed
-      </NavLink>
+      <Link view={views.home} store={props.store} params={"?tab=all"}>
+        Your Feed
+      </Link>
+
+      {/*<NavLink*/}
+      {/*className="nav-link"*/}
+      {/*isActive={(match, location) => {*/}
+      {/*return !location.search.match(/tab=(feed|tag)/) ? 1 : 0;*/}
+      {/*}}*/}
+      {/*to={{*/}
+      {/*pathname: "/",*/}
+      {/*search: "?tab=all"*/}
+      {/*}}*/}
+      {/*>*/}
+      {/*Global Feed*/}
+      {/*</NavLink>*/}
     </li>
   );
 };
@@ -60,7 +72,7 @@ const TagFilterTab = props => {
 };
 
 @inject("articlesStore", "commonStore", "userStore")
-@withRouter
+// @withRouter
 @observer
 class MainView extends React.Component {
   componentWillMount() {
@@ -82,11 +94,20 @@ class MainView extends React.Component {
   }
 
   getTag(props = this.props) {
-    return qsParse(props.location.search).tag || "";
+    // return qsParse(props.location.search).tag || "";
+    const { store } = props;
+    const {
+      router: { queryParams }
+    } = store;
+    return (queryParams && queryParams.tab) || "";
   }
 
   getTab(props = this.props) {
-    return qsParse(props.location.search).tab || "all";
+    const { store } = props;
+    const {
+      router: { queryParams }
+    } = store;
+    return (queryParams && queryParams.tab) || "all";
   }
 
   getPredicate(props = this.props) {
@@ -123,9 +144,9 @@ class MainView extends React.Component {
       <div className="col-md-9">
         <div className="feed-toggle">
           <ul className="nav nav-pills outline-active">
-            <YourFeedTab currentUser={currentUser} tab={this.getTab()} />
+            <YourFeedTab store={this.props.store} currentUser={currentUser} />
 
-            <GlobalFeedTab tab={this.getTab()} />
+            <GlobalFeedTab store={this.props.store} tab={this.getTab()} />
 
             <TagFilterTab tag={qsParse(this.props.location.search).tag} />
           </ul>

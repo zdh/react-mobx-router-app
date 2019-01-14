@@ -1,6 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { inject, observer } from "mobx-react";
+
+import { Link } from "mobx-router";
+import views from "../config/views";
 
 const FAVORITED_CLASS = "btn btn-sm btn-primary";
 const NOT_FAVORITED_CLASS = "btn btn-sm btn-outline-primary";
@@ -27,14 +30,19 @@ class ArticlePreview extends React.Component {
     return (
       <div className="article-preview">
         <div className="article-meta">
-          <Link to={`/@${article.author.username}`}>
-            <img src={article.author.image} alt="" />
-          </Link>
+
+          {/*<Link to={`/@${article.author.username}`}>*/}
+            {/*<img src={article.author.image} alt="" />*/}
+          {/*</Link>*/}
+
+          {/*<Link view={views.home} params={"?tab=feed"}>*/}
+            {/*<img src={article.author.image} alt="" />*/}
+          {/*</Link>*/}
 
           <div className="info">
-            <Link className="author" to={`/@${article.author.username}`}>
-              {article.author.username}
-            </Link>
+            {/*<Link className="author" to={`/@${article.author.username}`}>*/}
+              {/*{article.author.username}*/}
+            {/*</Link>*/}
             <span className="date">
               {new Date(article.createdAt).toDateString()}
             </span>
@@ -50,20 +58,20 @@ class ArticlePreview extends React.Component {
           </div>
         </div>
 
-        <Link to={`/article/${article.slug}`} className="preview-link">
-          <h1>{article.title}</h1>
-          <p>{article.description}</p>
-          <span>Read more...</span>
-          <ul className="tag-list">
-            {article.tagList.map(tag => {
-              return (
-                <li className="tag-default tag-pill tag-outline" key={tag}>
-                  {tag}
-                </li>
-              );
-            })}
-          </ul>
-        </Link>
+        {/*<Link to={`/article/${article.slug}`} className="preview-link">*/}
+          {/*<h1>{article.title}</h1>*/}
+          {/*<p>{article.description}</p>*/}
+          {/*<span>Read more...</span>*/}
+          {/*<ul className="tag-list">*/}
+            {/*{article.tagList.map(tag => {*/}
+              {/*return (*/}
+                {/*<li className="tag-default tag-pill tag-outline" key={tag}>*/}
+                  {/*{tag}*/}
+                {/*</li>*/}
+              {/*);*/}
+            {/*})}*/}
+          {/*</ul>*/}
+        {/*</Link>*/}
       </div>
     );
   }

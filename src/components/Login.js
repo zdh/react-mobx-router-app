@@ -1,10 +1,13 @@
-import { withRouter, Link } from "react-router-dom";
+// import { withRouter, Link } from "react-router-dom";
 import ListErrors from "./ListErrors";
 import React from "react";
 import { inject, observer } from "mobx-react";
 
+import { Link } from "mobx-router";
+import views from "../config/views";
+
 @inject("authStore")
-@withRouter
+// @withRouter
 @observer
 class Login extends React.Component {
   componentWillUnmount() {
@@ -28,7 +31,8 @@ class Login extends React.Component {
             <div className="col-md-6 offset-md-3 col-xs-12">
               <h1 className="text-xs-center">Sign In</h1>
               <p className="text-xs-center">
-                <Link to="register">Need an account?</Link>
+                {/*<Link to="register">Need an account?</Link>*/}
+                <Link view={views.register}>Need an account?</Link>
               </p>
 
               <ListErrors errors={errors} />

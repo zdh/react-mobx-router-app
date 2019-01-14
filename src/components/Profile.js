@@ -2,18 +2,20 @@ import ArticleList from "./ArticleList";
 import React from "react";
 import LoadingSpinner from "./LoadingSpinner";
 import RedError from "./RedError";
-import { NavLink, Link, withRouter } from "react-router-dom";
+// import { NavLink, Link, withRouter } from "react-router-dom";
 import { inject, observer } from "mobx-react";
 
 const EditProfileSettings = props => {
   if (props.isUser) {
     return (
-      <Link
-        to="/settings"
-        className="btn btn-sm btn-outline-secondary action-btn"
-      >
-        <i className="ion-gear-a" /> Edit Profile Settings
-      </Link>
+      <>
+        {/*<Link*/}
+            {/*to="/settings"*/}
+            {/*className="btn btn-sm btn-outline-secondary action-btn"*/}
+        {/*>*/}
+          {/*<i className="ion-gear-a" /> Edit Profile Settings*/}
+        {/*</Link>*/}
+      </>
     );
   }
   return null;
@@ -50,7 +52,7 @@ const FollowUserButton = props => {
 };
 
 @inject("articlesStore", "profileStore", "userStore")
-@withRouter
+// @withRouter
 @observer
 class Profile extends React.Component {
   componentWillMount() {
@@ -97,21 +99,21 @@ class Profile extends React.Component {
     return (
       <ul className="nav nav-pills outline-active">
         <li className="nav-item">
-          <NavLink
-            className="nav-link"
-            isActive={(match, location) => {
-              return location.pathname.match("/favorites") ? 0 : 1;
-            }}
-            to={`/@${profile.username}`}
-          >
-            My Articles
-          </NavLink>
+          {/*<NavLink*/}
+            {/*className="nav-link"*/}
+            {/*isActive={(match, location) => {*/}
+              {/*return location.pathname.match("/favorites") ? 0 : 1;*/}
+            {/*}}*/}
+            {/*to={`/@${profile.username}`}*/}
+          {/*>*/}
+            {/*My Articles*/}
+          {/*</NavLink>*/}
         </li>
 
         <li className="nav-item">
-          <NavLink className="nav-link" to={`/@${profile.username}/favorites`}>
-            Favorited Articles
-          </NavLink>
+          {/*<NavLink className="nav-link" to={`/@${profile.username}/favorites`}>*/}
+            {/*Favorited Articles*/}
+          {/*</NavLink>*/}
         </li>
       </ul>
     );

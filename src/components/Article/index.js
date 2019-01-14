@@ -2,12 +2,12 @@ import ArticleMeta from "./ArticleMeta";
 import CommentContainer from "./CommentContainer";
 import React from "react";
 import { inject, observer } from "mobx-react";
-import { withRouter } from "react-router-dom";
+// import { withRouter } from "react-router-dom";
 import RedError from "../RedError";
 import marked from "marked";
 
 @inject("articlesStore", "userStore", "commentsStore")
-@withRouter
+// @withRouter
 @observer
 class Article extends React.Component {
   componentDidMount() {
