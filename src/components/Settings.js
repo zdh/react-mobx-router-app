@@ -6,8 +6,8 @@ import { inject, observer } from "mobx-react";
 @inject("userStore")
 @observer
 class SettingsForm extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       image: "",

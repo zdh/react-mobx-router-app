@@ -2,14 +2,15 @@ import React from "react";
 import ReactDOM from "react-dom";
 import * as serviceWorker from "./serviceWorker";
 
-import promiseFinally from 'promise.prototype.finally';
-// import { HashRouter } from "react-router-dom";
-import { useStrict } from 'mobx';
+import promiseFinally from "promise.prototype.finally";
+
+import { useStrict } from "mobx";
 import { Provider } from "mobx-react";
 
-import {startRouter} from 'mobx-router';
-import views from './config/views';
-import stores from './stores';
+// import { HashRouter } from "react-router-dom";
+import { startRouter } from "mobx-router";
+import views from "./config/views";
+import stores from "./stores";
 
 import App from "./components/App";
 

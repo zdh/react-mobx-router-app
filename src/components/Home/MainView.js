@@ -6,13 +6,17 @@ import { inject, observer } from "mobx-react";
 import { Link } from "mobx-router";
 import views from "../../config/views";
 
-import { parse as qsParse } from "query-string";
-
 const YourFeedTab = props => {
   if (props.currentUser) {
+    const isActive = props.store.router.queryParams.tab === "feed";
     return (
       <li className="nav-item">
-        <Link view={views.home} store={props.store} params={"?tab=feed"}>
+        <Link
+          className={`nav-link ${isActive ? "active" : null}`}
+          view={views.home}
+          store={props.store}
+          queryParams={{ tab: "feed" }}
+        >
           Your Feed
         </Link>
 
@@ -35,10 +39,16 @@ const YourFeedTab = props => {
 };
 
 const GlobalFeedTab = props => {
+  const isActive = props.store.router.queryParams.tab === "all";
   return (
     <li className="nav-item">
-      <Link view={views.home} store={props.store} params={"?tab=all"}>
-        Your Feed
+      <Link
+        className={`nav-link ${isActive ? "active" : ""}`}
+        view={views.home}
+        store={props.store}
+        queryParams={{ tab: "all" }}
+      >
+        Global Feed
       </Link>
 
       {/*<NavLink*/}
@@ -71,7 +81,7 @@ const TagFilterTab = props => {
   );
 };
 
-@inject("articlesStore", "commonStore", "userStore")
+@inject("articlesStore", "commonStore", "userStore", "store")
 // @withRouter
 @observer
 class MainView extends React.Component {
@@ -103,6 +113,7 @@ class MainView extends React.Component {
   }
 
   getTab(props = this.props) {
+    // return qsParse(props.location.search).tab || 'all';
     const { store } = props;
     const {
       router: { queryParams }
@@ -115,7 +126,7 @@ class MainView extends React.Component {
       case "feed":
         return { myFeed: true };
       case "tag":
-        return { tag: qsParse(props.location.search).tag };
+        return { tag: props.store.router.queryParams.tag };
       default:
         return {};
     }
@@ -148,7 +159,7 @@ class MainView extends React.Component {
 
             <GlobalFeedTab store={this.props.store} tab={this.getTab()} />
 
-            <TagFilterTab tag={qsParse(this.props.location.search).tag} />
+            <TagFilterTab tag={this.props.store.router.queryParams.tag} />
           </ul>
         </div>
 

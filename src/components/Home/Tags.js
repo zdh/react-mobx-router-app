@@ -13,22 +13,12 @@ const Tags = props => {
         {tags.map(tag => {
           return (
             <>
-              {/*<Link*/}
-                  {/*to={{*/}
-                    {/*pathname: "/",*/}
-                    {/*search: "?tab=tag&tag=" + tag*/}
-                  {/*}}*/}
-                  {/*className="tag-default tag-pill"*/}
-                  {/*key={tag}*/}
-              {/*>*/}
-                {/*{tag}*/}
-              {/*</Link>*/}
               <Link
-                  view={views.home}
-                  store={props.store}
-                  params={`?tab=tag&tag=${tag}`}
-                  className="tag-default tag-pill"
-                  key={tag}
+                className={"tag-default tag-pill"}
+                view={views.home}
+                store={props.store}
+                queryParams={{ tab: "tag", tag }}
+                key={tag}
               >
                 {tag}
               </Link>

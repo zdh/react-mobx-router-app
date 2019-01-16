@@ -2,7 +2,7 @@ import Header from "./Header";
 import React from "react";
 // import { Switch, Route, withRouter } from "react-router-dom";
 import { inject, observer } from "mobx-react";
-import {MobxRouter} from 'mobx-router';
+import { MobxRouter } from "mobx-router";
 
 @inject("userStore", "commonStore")
 @observer
