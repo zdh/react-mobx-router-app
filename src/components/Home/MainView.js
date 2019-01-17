@@ -155,9 +155,9 @@ class MainView extends React.Component {
       <div className="col-md-9">
         <div className="feed-toggle">
           <ul className="nav nav-pills outline-active">
-            <YourFeedTab store={this.props.store} currentUser={currentUser} />
+            <YourFeedTab {...this.props} currentUser={currentUser} tab={this.getTab()} />
 
-            <GlobalFeedTab store={this.props.store} tab={this.getTab()} />
+            <GlobalFeedTab {...this.props} tab={this.getTab()} />
 
             <TagFilterTab tag={this.props.store.router.queryParams.tag} />
           </ul>

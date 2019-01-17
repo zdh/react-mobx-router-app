@@ -8,7 +8,7 @@ import views from "../config/views";
 const FAVORITED_CLASS = "btn btn-sm btn-primary";
 const NOT_FAVORITED_CLASS = "btn btn-sm btn-outline-primary";
 
-@inject("articlesStore")
+@inject("articlesStore", "store")
 @observer
 class ArticlePreview extends React.Component {
   handleClickFavorite = ev => {
@@ -30,19 +30,31 @@ class ArticlePreview extends React.Component {
     return (
       <div className="article-preview">
         <div className="article-meta">
-
           {/*<Link to={`/@${article.author.username}`}>*/}
-            {/*<img src={article.author.image} alt="" />*/}
+          {/*<img src={article.author.image} alt="" />*/}
           {/*</Link>*/}
-
-          {/*<Link view={views.home} params={"?tab=feed"}>*/}
-            {/*<img src={article.author.image} alt="" />*/}
-          {/*</Link>*/}
+          <Link
+            view={views.profile}
+            params={{ username: article.author.username }}
+            store={this.props.store}
+            key={article.author.image}
+          >
+            <img src={article.author.image} alt="" />
+          </Link>
 
           <div className="info">
             {/*<Link className="author" to={`/@${article.author.username}`}>*/}
-              {/*{article.author.username}*/}
+            {/*{article.author.username}*/}
             {/*</Link>*/}
+            <Link
+              className={"author"}
+              view={views.profile}
+              params={{ username: article.author.username }}
+              store={this.props.store}
+              key={article.author.image}
+            >
+              {article.author.username}
+            </Link>
             <span className="date">
               {new Date(article.createdAt).toDateString()}
             </span>
@@ -72,6 +84,26 @@ class ArticlePreview extends React.Component {
             {/*})}*/}
           {/*</ul>*/}
         {/*</Link>*/}
+        <Link
+          className={"preview-link"}
+          view={views.article}
+          params={{ id: article.slug }}
+          store={this.props.store}
+          key={article.slug}
+        >
+          <h1>{article.title}</h1>
+          <p>{article.description}</p>
+          <span>Read more...</span>
+          <ul className="tag-list">
+            {article.tagList.map(tag => {
+              return (
+                <li className="tag-default tag-pill tag-outline" key={tag}>
+                  {tag}
+                </li>
+              );
+            })}
+          </ul>
+        </Link>
       </div>
     );
   }

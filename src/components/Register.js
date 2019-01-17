@@ -2,8 +2,10 @@
 import ListErrors from "./ListErrors";
 import React from "react";
 import { inject, observer } from "mobx-react";
+import views from "../config/views";
+import { Link } from "mobx-router";
 
-@inject("authStore")
+@inject("authStore", "store")
 @observer
 class Register extends React.Component {
   componentWillUnmount() {
@@ -29,6 +31,9 @@ class Register extends React.Component {
               <h1 className="text-xs-center">Sign Up</h1>
               <p className="text-xs-center">
                 {/*<Link to="login">Have an account?</Link>*/}
+                <Link view={views.login} store={this.props.store}>
+                  Have an account?
+                </Link>
               </p>
 
               <ListErrors errors={errors} />

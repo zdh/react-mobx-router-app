@@ -3,8 +3,8 @@ import { inject } from "mobx-react";
 
 @inject("commentsStore")
 class CommentInput extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       body: ""
     };
