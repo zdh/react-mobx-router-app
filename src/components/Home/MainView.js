@@ -7,12 +7,12 @@ import { Link } from "mobx-router";
 import views from "../../config/views";
 
 const YourFeedTab = props => {
+  console.log('YourFeedTab');
   if (props.currentUser) {
-    const isActive = props.store.router.queryParams.tab === "feed";
     return (
       <li className="nav-item">
         <Link
-          className={`nav-link ${isActive ? "active" : null}`}
+          className={`nav-link ${props.tab === "feed" ? "active" : null}`}
           view={views.home}
           store={props.store}
           queryParams={{ tab: "feed" }}
@@ -39,11 +39,11 @@ const YourFeedTab = props => {
 };
 
 const GlobalFeedTab = props => {
-  const isActive = props.store.router.queryParams.tab === "all";
+  console.log('GlobalFeedTab');
   return (
     <li className="nav-item">
       <Link
-        className={`nav-link ${isActive ? "active" : ""}`}
+        className={`nav-link ${props.tab === "all" ? "active" : ""}`}
         view={views.home}
         store={props.store}
         queryParams={{ tab: "all" }}
@@ -132,10 +132,10 @@ class MainView extends React.Component {
     }
   }
 
-  handleTabChange = tab => {
-    if (this.props.location.query.tab === tab) return;
-    this.props.router.push({ ...this.props.location, query: { tab } });
-  };
+  // handleTabChange = tab => {
+  //   if (this.props.location.query.tab === tab) return;
+  //   this.props.router.push({ ...this.props.location, query: { tab } });
+  // };
 
   handleSetPage = page => {
     this.props.articlesStore.setPage(page);
