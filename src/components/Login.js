@@ -6,7 +6,7 @@ import { inject, observer } from "mobx-react";
 import { Link } from "mobx-router";
 import views from "../config/views";
 
-@inject("authStore")
+@inject("authStore", "store")
 // @withRouter
 @observer
 class Login extends React.Component {
@@ -18,7 +18,7 @@ class Login extends React.Component {
   handlePasswordChange = e => this.props.authStore.setPassword(e.target.value);
   handleSubmitForm = e => {
     e.preventDefault();
-    this.props.authStore.login().then(() => this.props.history.replace("/"));
+    this.props.authStore.login().then(() => this.props.store.router.goTo(views.home));
   };
 
   render() {
@@ -32,7 +32,7 @@ class Login extends React.Component {
               <h1 className="text-xs-center">Sign In</h1>
               <p className="text-xs-center">
                 {/*<Link to="register">Need an account?</Link>*/}
-                <Link view={views.register}>Need an account?</Link>
+                <Link view={views.register} store={this.props.store}>Need an account?</Link>
               </p>
 
               <ListErrors errors={errors} />

@@ -3,6 +3,8 @@ import React from "react";
 // import { withRouter } from "react-router-dom";
 import { inject, observer } from "mobx-react";
 
+import views from "../config/views";
+
 @inject("userStore")
 @observer
 class SettingsForm extends React.Component {
@@ -113,12 +115,12 @@ class SettingsForm extends React.Component {
   }
 }
 
-@inject("userStore", "authStore")
+@inject("userStore", "authStore", "store")
 // @withRouter
 @observer
 class Settings extends React.Component {
   handleClickLogout = () =>
-    this.props.authStore.logout().then(() => this.props.history.replace("/"));
+    this.props.authStore.logout().then(() => this.props.store.router.goTo(views.home));
 
   render() {
     return (

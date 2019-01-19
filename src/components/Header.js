@@ -6,7 +6,7 @@ import { Link } from "mobx-router";
 import views from "../config/views";
 
 const LoggedOutView = props => {
-    const { currentUser } = props.store.userStore;
+  const { currentUser } = props.store.userStore;
   if (!currentUser) {
     return (
       <ul className="nav navbar-nav pull-xs-right">

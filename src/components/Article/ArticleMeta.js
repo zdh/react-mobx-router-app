@@ -1,7 +1,10 @@
 import ArticleActions from "./ArticleActions";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import React from "react";
 import { observer } from "mobx-react";
+
+import { Link } from "mobx-router";
+import views from "../../config/views";
 
 const ArticleMeta = observer(props => {
   const article = props.article;
@@ -12,7 +15,15 @@ const ArticleMeta = observer(props => {
       </Link>
 
       <div className="info">
-        <Link to={`/@${article.author.username}`} className="author">
+        {/*<Link to={`/@${article.author.username}`} className="author">*/}
+        {/*{article.author.username}*/}
+        {/*</Link>*/}
+        <Link
+          className={"author"}
+          view={views.profile}
+          store={props.store}
+          params={{ username: article.author.username }}
+        >
           {article.author.username}
         </Link>
         <span className="date">
