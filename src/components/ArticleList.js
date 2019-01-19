@@ -13,7 +13,7 @@ const ArticleList = props => {
   }
 
   return (
-    <div>
+    <>
       {props.articles.map(article => {
         return <ArticlePreview article={article} key={article.slug} />;
       })}
@@ -23,7 +23,7 @@ const ArticleList = props => {
         totalPagesCount={props.totalPagesCount}
         currentPage={props.currentPage}
       />
-    </div>
+    </>
   );
 };
 

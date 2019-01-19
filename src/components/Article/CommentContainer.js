@@ -40,6 +40,7 @@ const CommentContainer = props => {
         </p>
 
         <CommentList
+          store={props.store}
           comments={props.comments}
           slug={props.slug}
           currentUser={props.currentUser}

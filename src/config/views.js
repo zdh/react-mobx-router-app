@@ -83,13 +83,13 @@ const views = {
     component: <Settings />
   }),
   profile: new Route({
-    path: "/:username",
+    path: "/:username/:fav",
     component: <Profile />
   }),
-  favorites: new Route({
-    path: "/:username/favorites",
-    component: <Profile />
-  }),
+  // favorites: new Route({
+  //   path: "/:username/favorites",
+  //   component: <Profile />
+  // }),
   home: new Route({
     path: "/",
     component: <Home />

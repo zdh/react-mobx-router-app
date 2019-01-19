@@ -6,12 +6,12 @@ import { inject, observer } from "mobx-react";
 import RedError from "../RedError";
 import marked from "marked";
 
-@inject("articlesStore", "userStore", "commentsStore")
+@inject("articlesStore", "userStore", "commentsStore", "store")
 // @withRouter
 @observer
 class Article extends React.Component {
   componentDidMount() {
-    const slug = this.props.match.params.id;
+    const slug = this.props.store.router.params.id;
     this.props.articlesStore.loadArticle(slug, { acceptCached: true });
     this.props.commentsStore.setArticleSlug(slug);
     this.props.commentsStore.loadComments();
@@ -28,7 +28,7 @@ class Article extends React.Component {
   };
 
   render() {
-    const slug = this.props.match.params.id;
+    const slug = this.props.store.router.params.id;
     const { currentUser } = this.props.userStore;
     const { comments, commentErrors } = this.props.commentsStore;
     const article = this.props.articlesStore.getArticle(slug);
@@ -44,6 +44,7 @@ class Article extends React.Component {
           <div className="container">
             <h1>{article.title}</h1>
             <ArticleMeta
+              store={this.props.store}
               article={article}
               canModify={canModify}
               onDelete={this.handleDeleteArticle}
@@ -74,6 +75,7 @@ class Article extends React.Component {
 
           <div className="row">
             <CommentContainer
+              store={this.props.store}
               comments={comments}
               errors={commentErrors}
               slug={slug}

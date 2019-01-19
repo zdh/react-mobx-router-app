@@ -8,6 +8,7 @@ const CommentList = observer(props => {
       {props.comments.map(comment => {
         return (
           <Comment
+            store={props.store}
             comment={comment}
             currentUser={props.currentUser}
             slug={props.slug}

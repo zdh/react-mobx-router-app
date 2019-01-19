@@ -86,6 +86,11 @@ class ArticlePreview extends React.Component {
         {/*</Link>*/}
         <Link
           className={"preview-link"}
+          style={{
+            display: 'block',
+            overflow: 'auto',
+            zoom: 1
+          }}
           view={views.article}
           params={{ id: article.slug }}
           store={this.props.store}

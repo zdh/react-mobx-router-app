@@ -5,22 +5,22 @@ import RedError from "./RedError";
 // import { NavLink, Link, withRouter } from "react-router-dom";
 import { inject, observer } from "mobx-react";
 import views from "../config/views";
-import {Link} from "mobx-router";
+import { Link } from "mobx-router";
 
 const EditProfileSettings = props => {
   if (props.isUser) {
     return (
       <>
         {/*<Link*/}
-            {/*to="/settings"*/}
-            {/*className="btn btn-sm btn-outline-secondary action-btn"*/}
+        {/*to="/settings"*/}
+        {/*className="btn btn-sm btn-outline-secondary action-btn"*/}
         {/*>*/}
-          {/*<i className="ion-gear-a" /> Edit Profile Settings*/}
+        {/*<i className="ion-gear-a" /> Edit Profile Settings*/}
         {/*</Link>*/}
         <Link
-            className={"btn btn-sm btn-outline-secondary action-btn"}
-            view={views.settings}
-            store={this.props.store}
+          className={"btn btn-sm btn-outline-secondary action-btn"}
+          view={views.settings}
+          store={this.props.store}
         >
           <i className="ion-gear-a" /> Edit Profile Settings
         </Link>
@@ -69,20 +69,25 @@ class Profile extends React.Component {
   }
 
   componentDidMount() {
-    this.props.profileStore.loadProfile(this.props.store.router.params.username);
+    this.props.profileStore.loadProfile(
+      this.props.store.router.params.username
+    );
     this.props.articlesStore.loadArticles();
   }
 
   componentDidUpdate(previousProps) {
     if (this.props.location !== previousProps.location) {
-      this.props.profileStore.loadProfile(this.props.store.router.params.username);
+      this.props.profileStore.loadProfile(
+        this.props.store.router.params.username
+      );
       this.props.articlesStore.setPredicate(this.getPredicate());
       this.props.articlesStore.loadArticles();
     }
   }
 
   getTab() {
-    if (/\/favorites/.test(this.props.store.router.currentView.path)) return "favorites";
+    if (/\/favorites/.test(this.props.store.router.currentView.path))
+      return "favorites";
     return "all";
   }
 
@@ -105,24 +110,24 @@ class Profile extends React.Component {
 
   renderTabs() {
     const { profile } = this.props.profileStore;
-    const isActive = this.props.store.router.params.tab === "favorites";
+    const isActive = this.props.store.router.params.fav === "favorites";
     return (
       <ul className="nav nav-pills outline-active">
         <li className="nav-item">
           {/*<NavLink*/}
-            {/*className="nav-link"*/}
-            {/*isActive={(match, location) => {*/}
-              {/*return location.pathname.match("/favorites") ? 0 : 1;*/}
-            {/*}}*/}
-            {/*to={`/@${profile.username}`}*/}
+          {/*className="nav-link"*/}
+          {/*isActive={(match, location) => {*/}
+          {/*return location.pathname.match("/favorites") ? 0 : 1;*/}
+          {/*}}*/}
+          {/*to={`/@${profile.username}`}*/}
           {/*>*/}
-            {/*My Articles*/}
+          {/*My Articles*/}
           {/*</NavLink>*/}
           <Link
-              className={`nav-link ${isActive ? "active" : null}`}
-              view={views.profile}
-              params={{username: profile.username}}
-              store={this.props.store}
+            className={`nav-link ${!isActive ? "active" : ""}`}
+            view={views.profile}
+            store={this.props.store}
+            params={{ username: profile.username }}
           >
             My Articles
           </Link>
@@ -130,13 +135,13 @@ class Profile extends React.Component {
 
         <li className="nav-item">
           {/*<NavLink className="nav-link" to={`/@${profile.username}/favorites`}>*/}
-            {/*Favorited Articles*/}
+          {/*Favorited Articles*/}
           {/*</NavLink>*/}
           <Link
-              className={"nav-link"}
-              view={views.profile}
-              params={{username: profile.username}}
-              store={this.props.store}
+            className={`nav-link ${isActive ? "active" : ""}`}
+            view={views.profile}
+            store={this.props.store}
+            params={{ username: profile.username, fav: "favorites" }}
           >
             Favorited Articles
           </Link>

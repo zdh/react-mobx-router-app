@@ -20,7 +20,10 @@ class Home extends React.Component {
       <div className="home-page">
         <Banner token={token} appName={appName} />
         <div className="container page">
-          <div className="row">
+          <div className="row" style={{
+            maxWidth: 990,
+            margin: '0 auto'
+          }}>
             <MainView />
 
             <div className="col-md-3">

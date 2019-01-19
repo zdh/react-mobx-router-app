@@ -10,7 +10,14 @@ const ArticleMeta = observer(props => {
   const article = props.article;
   return (
     <div className="article-meta">
-      <Link to={`/@${article.author.username}`}>
+      {/*<Link to={`/@${article.author.username}`}>*/}
+      {/*<img src={article.author.image} alt="" />*/}
+      {/*</Link>*/}
+      <Link
+        view={views.profile}
+        store={props.store}
+        params={{ username: article.author.username }}
+      >
         <img src={article.author.image} alt="" />
       </Link>
 

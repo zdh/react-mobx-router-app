@@ -112,7 +112,12 @@ class Header extends React.Component {
   render() {
     return (
       <nav className="navbar navbar-light">
-        <div className="container">
+        <div className="container" style={{
+            maxWidth: 990,
+            margin: '0 auto',
+            overflow: 'auto',
+            zIndex: 1,
+        }}>
           {/*<Link to="/" className="navbar-brand">*/}
           {/*{this.props.commonStore.appName.toLowerCase()}*/}
           {/*</Link>*/}
