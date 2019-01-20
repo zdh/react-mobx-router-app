@@ -20,7 +20,7 @@ const EditProfileSettings = props => {
         <Link
           className={"btn btn-sm btn-outline-secondary action-btn"}
           view={views.settings}
-          store={this.props.store}
+          store={props.store}
         >
           <i className="ion-gear-a" /> Edit Profile Settings
         </Link>

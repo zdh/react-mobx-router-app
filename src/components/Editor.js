@@ -1,9 +1,10 @@
 import ListErrors from "./ListErrors";
 import React from "react";
 import { inject, observer } from "mobx-react";
+import views from "../config/views";
 // import { withRouter } from "react-router-dom";
 
-@inject("editorStore")
+@inject("editorStore", "store")
 // @withRouter
 @observer
 class Editor extends React.Component {
@@ -12,7 +13,7 @@ class Editor extends React.Component {
   };
 
   componentWillMount() {
-    this.props.editorStore.setArticleSlug(this.props.match.params.slug);
+    this.props.editorStore.setArticleSlug(this.props.store.router.params.slug);
   }
 
   componentDidMount() {
@@ -20,8 +21,12 @@ class Editor extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.match.params.slug !== prevProps.match.params.slug) {
-      this.props.editorStore.setArticleSlug(this.props.match.params.slug);
+    if (
+      this.props.store.router.params.slug !== prevProps.store.router.params.slug
+    ) {
+      this.props.editorStore.setArticleSlug(
+        this.props.store.router.params.slug
+      );
       this.props.editorStore.loadInitialData();
     }
   }
@@ -62,7 +67,8 @@ class Editor extends React.Component {
     const { editorStore } = this.props;
     editorStore.submit().then(article => {
       editorStore.reset();
-      this.props.history.replace(`/article/${article.slug}`);
+      // this.props.history.replace(`/article/${article.slug}`);
+      this.props.store.router.goTo(views.article, { id: article.slug });
     });
   };
 

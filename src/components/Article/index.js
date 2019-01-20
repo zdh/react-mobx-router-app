@@ -5,6 +5,7 @@ import { inject, observer } from "mobx-react";
 // import { withRouter } from "react-router-dom";
 import RedError from "../RedError";
 import marked from "marked";
+import views from "../../config/views";
 
 @inject("articlesStore", "userStore", "commentsStore", "store")
 // @withRouter
@@ -20,7 +21,8 @@ class Article extends React.Component {
   handleDeleteArticle = slug => {
     this.props.articlesStore
       .deleteArticle(slug)
-      .then(() => this.props.history.replace("/"));
+      // .then(() => this.props.history.replace("/"));
+      .then(() => this.props.store.router.goTo(views.home));
   };
 
   handleDeleteComment = id => {
