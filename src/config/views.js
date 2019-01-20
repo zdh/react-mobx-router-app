@@ -1,98 +1,100 @@
 import React from "react";
-
-import Loadable from "react-loadable";
+import L from "react-loadable";
 
 //models
 import { Route } from "mobx-router";
 
 //components
-
-// import Article from './components/Article';
-// import Editor from './components/Editor';
-// import Home from './components/Home';
-// import Login from './components/Login';
-// import Profile from './components/Profile';
-// import Register from './components/Register';
-// import Settings from './components/Settings';
-
 // Loading Component
-function Loading(props) {
-  if (props.error) {
-    return <div>Error!</div>;
-  } else if (props.pastDelay) {
-    return <div>Loading...</div>;
-  } else {
-    return null;
-  }
-}
+const Loading = props =>
+  props.pastDelay ? (
+    <div
+      style={{
+        display: "flex",
+        width: "100%",
+        height: "100vh",
+        justifyContent: "center",
+        alignItems: "center"
+      }}
+    >
+      Loading...
+    </div>
+  ) : props.error ? (
+    <div>Error!</div>
+  ) : null;
 
-const Article = Loadable({
-  loader: () => import("../components/Article"),
-  loading: Loading
+const Loadable = opts =>
+  L({
+    render(loaded, props) {
+      const Component = loaded.default;
+      return <Component {...props} />;
+    },
+    loading: Loading,
+    ...opts
+  });
+
+const AsyncArticle = Loadable({
+  loader: () => import("../components/Article")
 });
 
-const Editor = Loadable({
-  loader: () => import("../components/Editor"),
-  loading: Loading
+const AsyncEditor = Loadable({
+  loader: () => import("../components/Editor")
 });
 
-const Home = Loadable({
-  loader: () => import("../components/Home"),
-  loading: Loading
+const AsyncHome = Loadable({
+  loader: () => import("../components/Home")
 });
 
-const Login = Loadable({
-  loader: () => import("../components/Login"),
-  loading: Loading
+const AsyncLogin = Loadable({
+  loader: () => import("../components/Login")
 });
 
-const Profile = Loadable({
-  loader: () => import("../components/Profile"),
-  loading: Loading
+const AsyncProfile = Loadable({
+  loader: () => import("../components/Profile")
 });
 
-const Register = Loadable({
-  loader: () => import("../components/Register"),
-  loading: Loading
+const AsyncRegister = Loadable({
+  loader: () => import("../components/Register")
 });
 
-const Settings = Loadable({
-  loader: () => import("../components/Settings"),
-  loading: Loading
+const AsyncSettings = Loadable({
+  loader: () => import("../components/Settings")
 });
 
 const views = {
   login: new Route({
     path: "/login",
-    component: <Login />
+    component: <AsyncLogin />
   }),
   register: new Route({
     path: "/register",
-    component: <Register />
+    component: <AsyncRegister />
   }),
   editor: new Route({
     path: "/editor/:slug?",
-    component: <Editor />
+    component: <AsyncEditor />
   }),
   article: new Route({
     path: "/article/:id",
-    component: <Article />
+    component: <AsyncArticle />
   }),
   settings: new Route({
     path: "/settings",
-    component: <Settings />
+    component: <AsyncSettings />
   }),
   profile: new Route({
     path: "/:username/:fav",
-    component: <Profile />
+    component: <AsyncProfile />
   }),
   home: new Route({
     path: "/",
-    component: <Home />,
+    component: <AsyncHome />,
     onParamsChange: (route, params, store, queryParams) => {
-      store.articlesStore.setPredicate(store.articlesStore.getPredicate({
-        store
-      }));
+      store.articlesStore.setPredicate(
+        store.articlesStore.getPredicate({
+          store
+        })
+      );
       store.articlesStore.loadArticles();
     }
   })
