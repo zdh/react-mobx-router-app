@@ -47,3 +47,5 @@ Serve it with a static server.
 * 文章列表实现无限加载，引用高性能`react-tiny-virtual-list`组件。
 
 * 通过ServiceWorker预缓存（precache）资源文件，Google官方推出人[Workbox](https://developers.google.com/web/tools/workbox/)是极好的解决方案。
+
+## Thanks！！！
