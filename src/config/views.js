@@ -86,13 +86,15 @@ const views = {
     path: "/:username/:fav",
     component: <Profile />
   }),
-  // favorites: new Route({
-  //   path: "/:username/favorites",
-  //   component: <Profile />
-  // }),
   home: new Route({
     path: "/",
-    component: <Home />
+    component: <Home />,
+    onParamsChange: (route, params, store, queryParams) => {
+      store.articlesStore.setPredicate(store.articlesStore.getPredicate({
+        store
+      }));
+      store.articlesStore.loadArticles();
+    }
   })
 };
 export default views;

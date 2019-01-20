@@ -53,7 +53,7 @@ export class ArticlesStore {
     return this.$req()
       .then(
         action(({ articles, articlesCount }) => {
-          this.articlesRegistry.clear();
+          // this.articlesRegistry.clear();
           articles.forEach(article =>
             this.articlesRegistry.set(article.slug, article)
           );
@@ -141,6 +141,34 @@ export class ArticlesStore {
         throw err;
       })
     );
+  }
+
+  @action
+  getParams(props, key, defaultValue) {
+    const { store } = props;
+    const {
+      router: { queryParams, params }
+    } = store;
+    return (
+      (params && params[key]) ||
+      (queryParams && queryParams[key]) ||
+      defaultValue
+    );
+  }
+
+  @action
+  getPredicate(props) {
+    const tab = this.getParams(props, "tab", "all");
+    const tag = this.getParams(props, "tag", "");
+
+    switch (tab) {
+      case "feed":
+        return { myFeed: true };
+      case "tag":
+        return { tag };
+      default:
+        return {};
+    }
   }
 }
 

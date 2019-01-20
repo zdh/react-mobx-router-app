@@ -1,7 +1,8 @@
 import ArticlePreview from "./ArticlePreview";
-import ListPagination from "./ListPagination";
+// import ListPagination from "./ListPagination";
 import LoadingSpinner from "./LoadingSpinner";
 import React from "react";
+import VirtualList from "react-tiny-virtual-list";
 
 const ArticleList = props => {
   if (props.loading && props.articles.length === 0) {
@@ -14,15 +15,40 @@ const ArticleList = props => {
 
   return (
     <>
-      {props.articles.map(article => {
-        return <ArticlePreview article={article} key={article.slug} />;
-      })}
+      {/*{props.articles.map(article => {*/}
+      {/*return <ArticlePreview article={article} key={article.slug} />;*/}
+      {/*})}*/}
 
-      <ListPagination
-        onSetPage={props.onSetPage}
-        totalPagesCount={props.totalPagesCount}
-        currentPage={props.currentPage}
+      <VirtualList
+        height={600}
+        itemCount={props.articles.length}
+        itemSize={200}
+        renderItem={({ index, style }) => {
+          return props.articles[index] !== null ? (
+            <div style={style} key={index}>
+              <ArticlePreview article={props.articles[index]} key={index} />
+            </div>
+          ) : (
+            <div key={index}>Loading …</div>
+          );
+        }}
+        onItemsRendered={({ startIndex, stopIndex }) => {
+          // load nextPage
+          if (
+            !props.isLoading &&
+            stopIndex - props.currentPage * 10 > 5 &&
+            props.currentPage < props.totalPagesCount
+          ) {
+            props.onSetPage(props.currentPage + 1);
+          }
+        }}
       />
+
+      {/*<ListPagination*/}
+      {/*onSetPage={props.onSetPage}*/}
+      {/*totalPagesCount={props.totalPagesCount}*/}
+      {/*currentPage={props.currentPage}*/}
+      {/*/>*/}
     </>
   );
 };
