@@ -33,14 +33,17 @@ Serve it with a static server.
 - [x] [customize-cra](https://github.com/arackaf/customize-cra)
 - [x] [@babel/plugin-proposal-decorators](https://github.com/babel/babel/tree/master/packages/babel-plugin-proposal-decorators)
 
-- [ ] [Typescript](https://www.typescriptlang.org/)
+- [ ] [Typescript](https://www.typescriptlang.org/)，未集成。
 
 ## Learn and Notes
 
 * 修饰器在 `·Create React App (v2)` 中需要 `react-app-rewired` 和 `customize-cra` 来实现。
 	> decorators are not supported out of the box in create-react-app@2.*. To fix this, you can either use the decorate utility, eject, or use the customize-cra package.
 
-* 替换`mobx-router`后，当queryParams传递参数时，fetch数据触发时机存在问题，可通过`onParamsChange`触发。
+* 替换`mobx-router`后，当传递参数时，部分fetch数据触发时机存在问题，可通过`onParamsChange`触发。
+
+* 根据webpack import()机制实现动态加载JS模块，通过第三方`react-loadabler`模块统一管理。
 
 * 文章列表实现无限加载，引用高性能`react-tiny-virtual-list`组件。
 
+* 通过ServiceWorker预缓存（precache）资源文件，Google官方推出人[Workbox](https://developers.google.com/web/tools/workbox/)是极好的解决方案。
